@@ -1,31 +1,3 @@
-export const loginDatas = [
-  {
-    id: 1,
-    phone: '123456789',
-    otp: '456789',
-  },
-  {
-    id: 2,
-    phone: '123456788',
-    otp: '456788',
-  },
-  {
-    id: 3,
-    phone: '123456787',
-    otp: '456787',
-  },
-  {
-    id: 4,
-    phone: '123456786',
-    otp: '456786',
-  },
-  {
-    id: 5,
-    phone: '123456789',
-    otp: '456785',
-  },
-];
-
 export const introDatas = [
   {
     title: 'Chấm công qua GPS, Wifi, QR Code tích hợp sâu với AI',
@@ -56,3 +28,6 @@ export const introDatas = [
     imgUrl: require('../assets/images/intros/intro-7.png'),
   },
 ];
+
+
+export const otpLength = 5;

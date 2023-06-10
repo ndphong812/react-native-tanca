@@ -5,9 +5,13 @@ import { useRef, useState } from "react";
 import IntroItem from "./IntroItem";
 import { SLIDER_WIDTH, ITEM_WIDTH, WHITE, theme } from "utils/css";
 import { introDatas } from "utils/data";
+import { useNavigation } from "@react-navigation/native";
+import { authStyles } from "styles/auths";
+
 const IntroPage = () => {
   const [index, setIndex] = useState(0);
   const isCarousel = useRef(null);
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -37,7 +41,7 @@ const IntroPage = () => {
         <Box style={styles.buttonContainer}>
           <Button
             style={styles.buttonItem}
-            onPress={() => console.log("hello world")}
+            onPress={() => navigation.navigate("Login")}
             variant="outline"
             borderColor="primary.50"
             _text={styles.leftButton}
@@ -46,7 +50,7 @@ const IntroPage = () => {
           </Button>
           <Button
             style={styles.buttonItem}
-            onPress={() => console.log("hello world")}
+            onPress={() => navigation.navigate("Register")}
             variant="solid"
             bg="primary.50"
             _text={styles.rightButton}
@@ -54,8 +58,13 @@ const IntroPage = () => {
             Join Now
           </Button>
         </Box>
-        <Text style={styles.bottomTitle} fontSize="md" color="singletons.50">
-          Sign in with <Text style={styles.bottomTitleBold}>Azure AD</Text>
+        <Text
+          style={authStyles.authBottomTitle}
+          fontSize="md"
+          color="singletons.50"
+        >
+          Sign in with{" "}
+          <Text style={authStyles.authBottomTitleBold}>Azure AD</Text>
         </Text>
       </Box>
     </View>
@@ -110,14 +119,6 @@ const styles = StyleSheet.create({
   rightButton: {
     fontSize: "lg",
     lineHeight: "md",
-  },
-  bottomTitle: {
-    textAlign: "center",
-    lineHeight: 22,
-  },
-  bottomTitleBold: {
-    fontWeight: "bold",
-    lineHeight: 22,
   },
 });
 

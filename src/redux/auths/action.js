@@ -1,27 +1,30 @@
-export const REGISTER = 'REGISTER';
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+export const ADD_USER = "ADD_USER";
+
+export const UPDATE_USER = "UPDATE_USER";
+
+export const CHANGE_CURRENT_REGISTER = "CHANGE_CURRENT_REGISTER";
 
 // Register
-export const register = request => {
+export const changeCurrentRegister = (request) => {
   return {
-    type: REGISTER,
+    type: CHANGE_CURRENT_REGISTER,
     payload: request,
   };
 };
 
-// Login
-export const login = request => {
+
+// Register
+export const addUser = (request) => {
   return {
-    type: LOGIN,
+    type: ADD_USER,
     payload: request,
   };
 };
 
-// Logout
-export const logout = request => {
+//Edit
+export const updateUser = (request) => {
   return {
-    type: LOGOUT,
+    type: UPDATE_USER,
     payload: request,
   };
 };

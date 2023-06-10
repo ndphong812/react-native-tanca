@@ -9,6 +9,7 @@ import LoginPage from './src/pages/login';
 import RegisterPage from './src/pages/register';
 import {NativeBaseProvider} from 'native-base';
 import {theme} from 'utils/css';
+import OtpPage from 'pages/otps';
 
 const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
@@ -16,14 +17,16 @@ function App(): JSX.Element {
   return (
     <NativeBaseProvider theme={theme}>
       <Provider store={store}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="Intro"
-            screenOptions={{headerShown: false}}>
+            screenOptions={{ headerShown: false }}
+          >
             <Stack.Screen name="Intro" component={IntroPage} />
             <Stack.Screen name="Login" component={LoginPage} />
             <Stack.Screen name="Register" component={RegisterPage} />
+            <Stack.Screen name="Otp" component={OtpPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

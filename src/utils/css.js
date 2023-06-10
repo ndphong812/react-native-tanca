@@ -10,9 +10,9 @@ export const ITEM_WIDTH = SLIDER_WIDTH;
 // THEME
 export const theme = extendTheme({
   fontWeights: {
-    normal: "400",
-    medium: "500",
-    bold: "600",
+    normal: 400,
+    medium: 500,
+    bold: 600,
   },
   fontSizes: {
     xs: "12px",
@@ -26,6 +26,7 @@ export const theme = extendTheme({
     xs: "16px",
     sm: "20px",
     md: "22px",
+    md1: "24px",
     lg: "26px",
     xl: "32px",
     "2xl": "36px",
@@ -45,7 +46,10 @@ export const theme = extendTheme({
       900: "#003F5E",
     },
     muted: {
+      50: WHITE,
       100: "#E4ECFF",
+      200: "#96A0BD",
+      300: "#F2F7FF",
     },
     // Redefining only one shade, rest of the color will remain same.
     amber: {
