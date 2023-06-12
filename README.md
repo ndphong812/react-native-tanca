@@ -1,1 +1,1 @@
-# react-native-tanca
+# Please review in Master branch.
