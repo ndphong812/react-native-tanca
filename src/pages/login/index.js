@@ -3,12 +3,11 @@ import { VStack, Button, Text, Box } from "native-base";
 import { theme } from "utils/css";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
-import { changeCurrentRegister } from "redux/auths/action";
 import { useDispatch } from "react-redux";
 import AuthsLayout from "layouts/auths";
 import { authStyles } from "styles/auths";
 import downArrowIcon from "assets/icons/down-arrow.png";
-import userIcon from "assets/icons/user.png";
+import { changePhoneLogin } from "redux/auths/action";
 
 const LoginPage = () => {
   const navigation = useNavigation();
@@ -21,7 +20,7 @@ const LoginPage = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    dispatch(changeCurrentRegister(data));
+    dispatch(changePhoneLogin(data));
     navigation.navigate("Otp");
   };
 

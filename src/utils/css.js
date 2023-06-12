@@ -32,7 +32,6 @@ export const theme = extendTheme({
     "2xl": "36px",
   },
   colors: {
-    // Add new color
     primary: {
       50: "#1ECC78",
       100: "#C5E4F3",
@@ -51,7 +50,6 @@ export const theme = extendTheme({
       200: "#96A0BD",
       300: "#F2F7FF",
     },
-    // Redefining only one shade, rest of the color will remain same.
     amber: {
       400: "#d97706",
     },
@@ -60,7 +58,6 @@ export const theme = extendTheme({
     },
   },
   config: {
-    // Changing initialColorMode to 'dark'
     initialColorMode: "dark",
   },
 });

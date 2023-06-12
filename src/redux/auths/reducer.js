@@ -1,45 +1,35 @@
-import { ADD_USER, CHANGE_CURRENT_REGISTER, UPDATE_USER } from "./action";
-import uuid from "react-native-uuid";
+import { users } from "utils/data";
+import {
+  CHANGE_CURRENT_REGISTER,
+  CHANGE_PHONE_LOGIN,
+  LOGIN_USER,
+  REGISTER_USER,
+  LOGIN_SUCCESS,
+} from "./action";
+import { storeData } from "./api";
 
 const initialState = {
-  users: [
-    {
-      id: 1,
-      fullName: "Nguyen Van A",
-      phoneNumber: "123456789",
-      otp: "456789",
-    },
-    {
-      id: 2,
-      fullName: "Nguyen Van A",
-      phoneNumber: "123456788",
-      otp: "456788",
-    },
-    {
-      id: 3,
-      fullName: "Nguyen Van A",
-      phoneNumber: "123456787",
-      otp: "456787",
-    },
-    {
-      id: 4,
-      fullName: "Nguyen Van A",
-      phoneNumber: "123456786",
-      otp: "456786",
-    },
-    {
-      id: 5,
-      fullName: "Nguyen Van A",
-      phoneNumber: "123456789",
-      otp: "456785",
-    },
-  ],
+  users: users,
   currenrRegister: {
     id: "",
     fullName: "",
     phoneNumber: "",
     otp: "",
   },
+  currentLogin: {
+    id: "",
+    fullName: "",
+    phoneNumber: "",
+    otp: "",
+  },
+  action: "",
+  user: {
+    id: "",
+    fullName: "",
+    phoneNumber: "",
+    otp: "",
+  },
+  isLoggedIn: false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -51,14 +41,34 @@ const authReducer = (state = initialState, action) => {
           ...state.currenrRegister,
           ...action.payload,
         },
+        action: REGISTER_USER,
       };
-    case ADD_USER:
-      console.log("action.payload", action.payload);
+    case CHANGE_PHONE_LOGIN:
+      return {
+        ...state,
+        currentLogin: {
+          ...state.currentLogin,
+          phoneNumber: action.payload.phoneNumber,
+        },
+        action: LOGIN_USER,
+      };
+    case REGISTER_USER:
       return {
         ...state,
         users: [...state.users, action.payload],
         currenrRegister: action.payload,
+        action: "",
       };
+    case LOGIN_SUCCESS:
+      storeData();
+      return {
+        ...state,
+        user: action.payload,
+        action: "",
+        isLoggedIn: true,
+        message: "Đăng nhập thành công",
+      };
+
     default:
       return state;
   }

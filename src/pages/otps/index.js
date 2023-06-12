@@ -1,18 +1,20 @@
-import { View, StyleSheet, Image } from "react-native";
+import { View } from "react-native";
 import { VStack, Button, Text, Box } from "native-base";
 import { theme } from "utils/css";
 import { useNavigation } from "@react-navigation/native";
-import { addUser } from "redux/auths/action";
+import { LOGIN_USER, REGISTER_USER, addUser } from "redux/auths/action";
 import { useDispatch, useSelector } from "react-redux";
 import AuthsLayout from "layouts/auths";
 import { authStyles } from "styles/auths";
 import OTPTextInput from "react-native-otp-textinput";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { otpLength } from "utils/data";
 import uuid from "react-native-uuid";
 import DialogBox from "components/dialog";
+import { loginRequest } from "redux/auths/action";
 
 const OtpPage = () => {
+  const navigation = useNavigation();
 
   const dispatch = useDispatch();
 
@@ -20,7 +22,11 @@ const OtpPage = () => {
 
   const currenrRegister = selector.currenrRegister;
 
+  const currentLogin = selector.currentLogin;
+
   const [otp, setOtp] = useState("");
+
+  const otpInput = useRef(null);
 
   const [valid, setValid] = useState(false);
 
@@ -31,15 +37,38 @@ const OtpPage = () => {
     setOtp(e);
   };
 
+  const otpType = selector.action;
+
   const handleSendOtp = () => {
-    const user = {
-      ...currenrRegister,
-      otp: otp,
-      id: uuid.v4().slice(0, 6),
-    };
-    dispatch(addUser(user));
-    setVisible(true);
+    if (otpType === REGISTER_USER) {
+      const user = {
+        ...currenrRegister,
+        otp: otp,
+        id: uuid.v4().slice(0, 6),
+      };
+      dispatch(addUser(user));
+      setVisible(true);
+    }
+    if (otpType === LOGIN_USER) {
+      dispatch(
+        loginRequest({
+          phoneNumber: currentLogin.phoneNumber,
+          otp: otp,
+        })
+      );
+    }
+    if (otpInput.current) {
+      otpInput.current.clear();
+    }
+    setOtp("");
   };
+
+  useEffect(() => {
+    if (selector.isLoggedIn) {
+      navigation.navigate("Home");
+    }
+  }, [selector.isLoggedIn]);
+
   return (
     <AuthsLayout>
       <View style={authStyles.authForm}>
@@ -56,11 +85,13 @@ const OtpPage = () => {
         </Box>
         <VStack style={[authStyles.inputForm]}>
           <OTPTextInput
+            defaultValue={otp}
             inputCount={5}
             handleTextChange={(e) => setOtpText(e)}
             textInputStyle={authStyles.otpsTextInput}
             offTintColor={theme.colors.muted[300]}
             tintColor={theme.colors.primary[50]}
+            ref={otpInput}
           />
           <Button
             onPress={() => handleSendOtp()}
@@ -86,24 +117,5 @@ const OtpPage = () => {
     </AuthsLayout>
   );
 };
-
-const styles = StyleSheet.create({
-  registerActions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingTop: 16,
-  },
-  closeAction: {
-    paddingHorizontal: 20,
-  },
-  arrowGroup: {
-    paddingRight: 5,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    borderRightWidth: 1,
-    borderRightColor: theme.colors.muted[100],
-  },
-});
 
 export default OtpPage;

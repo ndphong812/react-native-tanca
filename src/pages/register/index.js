@@ -48,6 +48,7 @@ const RegisterPage = () => {
                   onChangeText={(value) => onChange(value)}
                   value={value}
                   placeholder="Nhập họ và tên"
+                  autoCapitalize="words"
                 />
               )}
               name="fullName"
